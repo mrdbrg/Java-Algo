@@ -1,38 +1,50 @@
 package com.havefunwith;
 
+import com.havefunwith.algorithms.TwoNumberSum;
 import com.havefunwith.algorithms.ValidateSubsequence;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 import static com.havefunwith.helpers.Helper.*;
+import static com.havefunwith.helpers.Helper.throwException;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        int algoInput;
+        int inputChoice;
+        int option = 1;
+        Scanner scanner = new Scanner(System.in);
         do {
-            algoInput = promptUser();
+            inputChoice = promptUser("Choose 1 :: ValidateSubsequence\n" +
+                    "Choose 2 :: TwoNumberSum");
 
-            if (algoInput == 1) {
+            if (inputChoice == 1) {
                 try {
-                    Scanner scanner = new Scanner(System.in);
-                    int solutionOption = 1;
                     if (ValidateSubsequence.getCounter() > 1) {
                         displaySolutionOptions(ValidateSubsequence.getCounter(), ValidateSubsequence.getSolutions());
-                        solutionOption = Integer.parseInt(scanner.nextLine());
+                        option = Integer.parseInt(scanner.nextLine());
                     }
-                    Boolean output = ValidateSubsequence.availableSolutions(solutionOption);
-                    if (output == true) algoInput = 0;
+                    Boolean output = ValidateSubsequence.availableSolutions(option);
+                    if (output == true) inputChoice = 0;
                 } catch(Exception e) {
-                    System.out.println("\nEXCEPTION :: Error " + e.getMessage() + "\n\n" +
-                            "Try again with correct input example below: \n" +
-                            correctInput("1,2,3", "No spaces in between each item in the array."));
+                    throwException(e, new String[]{"1,2,3"}, new String[]{"No spaces in between each item in the array."});
+                }
+            } else if (inputChoice == 2) {
+                try {
+                    if (TwoNumberSum.getCounter() > 1) {
+                        displaySolutionOptions(TwoNumberSum.getCounter(), TwoNumberSum.getSolutions());
+                        option = Integer.parseInt(scanner.nextLine());
+                    }
+                    Boolean output = TwoNumberSum.availableSolutions(option);
+                    if (output == true) inputChoice = 0;
+                } catch(Exception e) {
+                    throwException(e, new String[]{"1,2,3", "10"}, new String[]{"No spaces in between each item in the array.", "Second value must be an integer value."});
                 }
             }
 
-        } while(algoInput != 0);
+        } while(inputChoice != 0);
     }
 
 }
