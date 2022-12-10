@@ -8,25 +8,13 @@ import java.util.stream.Collectors;
 public class Helper {
 
     /**
-     * Helps when an exception is thrown to advise user on proper input data .
-     *
-     * @param correctData
-     * @param hint
-     * @return
-     */
-    public static String correctInput(String correctData, String hint) {
-        return "-> " + correctData + "\n*************************************************\n" +
-                "=> " + hint + "\n\n";
-    }
-
-    /**
      * Prompts user to choose from a list of algorithms.
      *
      * @return user algorithm's choice
      */
-    public static int promptUser() {
+    public static int promptUser(String options) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose 1 :: ValidateSubsequence");
+        System.out.println(options);
         arrowPrompt();
         return Integer.parseInt(scanner.nextLine());
     }
@@ -45,13 +33,13 @@ public class Helper {
      * @return a int[] array
      */
     public static int[] convertToIntArray(String strVal) {
-        String[] numStr = strVal.split(",");
-        int[] numbers = new int[numStr.length];
+        String[] strNum = strVal.split(",");
+        int[] array = new int[strNum.length];
 
-        for (int i = 0; i < numStr.length; i++) {
-            numbers[i] = Integer.parseInt(numStr[i]);
+        for (int i = 0; i < strNum.length; i++) {
+            array[i] = Integer.parseInt(strNum[i]);
         }
-        return numbers;
+        return array;
     }
 
     /**
@@ -82,6 +70,49 @@ public class Helper {
         }
         System.out.println("\nChoose a solution: ");
         arrowPrompt();
+    }
+
+    /**
+     * Returns the banner to describe the chosen solution.
+     *
+     * @param banner
+     */
+    public static void solutionBanner(String banner) {
+        System.out.println("===========================");
+        System.out.println("    " + banner);
+        System.out.println("===========================");
+    }
+
+    /**
+     * Displays exception message and invokes {@link #correctInput(String, String)}
+     *
+     * @param exception
+     * @param data
+     * @param hint
+     */
+    public static void throwException(Exception exception, String[] data, String[] hint) {
+        System.out.println("\nEXCEPTION :: Error " + exception.getMessage() + "\n\n" +
+                "Try again with correct input example below: \n" +
+                correctInput(data, hint));
+    }
+
+    /**
+     * Helps when an exception is thrown to advise user on proper input data .
+     *
+     * @param correctData
+     * @param hint
+     * @return
+     */
+    private static String correctInput(String[] correctData, String[] hint) {
+        String output = "";
+        for (int i = 0; i < correctData.length; i++) {
+            output += "-> " + correctData[i] + "\n";
+        }
+        output += "******************************************\n";
+        for (int i = 0; i < correctData.length; i++) {
+            output += "=> " +  hint[i] + "\n";
+        }
+        return output;
     }
 
 }
