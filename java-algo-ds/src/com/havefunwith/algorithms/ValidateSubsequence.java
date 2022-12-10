@@ -1,7 +1,5 @@
 package com.havefunwith.algorithms;
 
-import com.havefunwith.impl.HelperFields;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -80,19 +78,15 @@ public class ValidateSubsequence {
      * @param solutionOption
      * @return
      */
-    public static Boolean availableSolutions(int solutionOption) {
-        if (solutionOption == 1) {
-            System.out.println("===========================");
-            System.out.println("    FOR LOOP SOLUTION");
-            System.out.println("===========================");
-            int[][] values = promptForValues();
+    public static Boolean availableSolutions(int option) {
+        if (option == 1) {
+            solutionBanner("FOR LOOP SOLUTION");
+            int[][] values = algoTargetPrompt();
             System.out.println(ValidateSubsequence.solutionOne(convertToList(values[0]), convertToList(values[1])));
             return true;
-        } else if (solutionOption == 2) {
-            System.out.println("===========================");
-            System.out.println("    WHILE LOOP SOLUTION");
-            System.out.println("===========================");
-            int[][] values = promptForValues();
+        } else if (option == 2) {
+            solutionBanner("WHILE LOOP SOLUTION");
+            int[][] values = algoTargetPrompt();
             System.out.println(ValidateSubsequence.solutionOne(convertToList(values[0]), convertToList(values[1])));
             return true;
         } else {
@@ -102,17 +96,17 @@ public class ValidateSubsequence {
     }
 
     /**
-     * Prompts user for the array values.
+     * Prompts user for algorithm values.
      *
-     * @return a two dimensional array of int[][]
+     * @return
      */
-    private static int[][] promptForValues() {
+    private static int[][] algoTargetPrompt() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter an array of integers:");
         arrowPrompt();
         int[] array =  convertToIntArray(scanner.nextLine());
 
-        System.out.println("Enter a potential subsequence:");
+        System.out.println("Enter an array of integers of a potential subsequence:");
         arrowPrompt();
         int[] sequence = convertToIntArray(scanner.nextLine());
 
